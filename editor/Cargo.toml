@@ -1,0 +1,12 @@
+[package]
+name = "polyengine-editor"
+version = "0.1.0"
+authors = [
+    # Extend this list when submiting PR
+    "Michał Majczak <michal.majczak92@gmail.com>"
+    ]
+edition = "2018"
+
+[dependencies]
+polyengine-core = {path = "../core", features=[]}
+polyengine = {path = "../engine", features=[]}
