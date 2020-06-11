@@ -1,21 +1,27 @@
-name: Rust
+name: Check formatting
 
-on:
-  push:
-    branches: [ master, dev ]
-  pull_request:
-    branches: [ master, dev ]
+on: [push, pull_request]
 
 env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  build:
+build_and_test:
+    name: Rust project
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
-    - name: Setup
-      run: rustup toolchain install nightly
-    - name: Check formatting
-      run: cargo +nightly fmt -- --check
+    - uses: actions-rs/toolchain@v1
+        with:
+        toolchain: stable
+
+#   jobs:
+#   build:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#     - uses: actions/checkout@v2
+#     - name: Setup
+#       run: rustup toolchain install nightly
+#     - name: Check formatting
+#       run: cargo +nightly fmt -- --check
