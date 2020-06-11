@@ -1,6 +1,5 @@
-use vulkano::swapchain::{ColorSpace, CompositeAlpha};
 use vulkano::format::Format;
-
+use vulkano::swapchain::{ColorSpace, CompositeAlpha};
 
 pub const DEFAULT_COLOR_SPACE: ColorSpace = ColorSpace::SrgbNonLinear;
 

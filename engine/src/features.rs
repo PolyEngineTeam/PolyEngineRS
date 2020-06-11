@@ -1,20 +1,22 @@
 macro_rules! is_feature_enabled {
-    ($name:expr) => (
-        (||{
-        #[allow(unused_mut, unused_assignments)]
-        let mut val = false;
-        #[cfg(feature = $name)]
-        { val = true; }
-        val
+    ($name:expr) => {
+        (|| {
+            #[allow(unused_mut, unused_assignments)]
+            let mut val = false;
+            #[cfg(feature = $name)]
+            {
+                val = true;
+            }
+            val
         })();
-    );
+    };
 }
 
 #[derive(Debug)]
 pub struct Features {
     graphics: bool,
     audio: bool,
-    networking: bool
+    networking: bool,
 }
 
 impl Features {

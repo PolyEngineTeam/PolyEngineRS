@@ -1,24 +1,24 @@
-use winit::event_loop::EventLoop;
+use winit::event::DeviceEvent;
+use winit::event::DeviceId;
+use winit::event::StartCause;
 use winit::event::{Event, WindowEvent};
 use winit::event_loop::ControlFlow;
+use winit::event_loop::EventLoop;
 use winit::event_loop::EventLoopWindowTarget;
 use winit::window::WindowId;
-use winit::event::DeviceId;
-use winit::event::DeviceEvent;
-use winit::event::StartCause;
 
 use std::time::Instant;
 
-use polyengine_graphics::{RenderingSystem};
 use polyengine::Engine;
+use polyengine_graphics::RenderingSystem;
 
 use crate::primitives;
 
 pub struct ClientApp {
-    rendering_system : RenderingSystem,
+    rendering_system: RenderingSystem,
     engine: Engine,
 
-    last_tick_instant : Instant
+    last_tick_instant: Instant,
 }
 
 impl ClientApp {
@@ -27,10 +27,10 @@ impl ClientApp {
         let mut rendering_system = RenderingSystem::new(&event_loop);
         rendering_system.open_window(event_loop, "Rustcraft client");
         rendering_system.create_geometry(&primitives::generate_box(1.0));
-        return ClientApp{
+        return ClientApp {
             engine,
             rendering_system,
-            last_tick_instant: Instant::now()
+            last_tick_instant: Instant::now(),
         };
     }
 
@@ -41,9 +41,9 @@ impl ClientApp {
     fn on_suspend(&mut self) {}
     fn on_resume(&mut self) {}
     fn on_close(&mut self) {}
-    
+
     // Main Loop
-    
+
     fn on_update(&mut self) {
         let now_instant = Instant::now();
         let dt = now_instant - self.last_tick_instant;
@@ -51,7 +51,9 @@ impl ClientApp {
         self.last_tick_instant = now_instant;
     }
     fn on_redraw(&mut self, _window_id: WindowId) {}
-    fn on_draw(&mut self) { self.rendering_system.end_frame(); }
+    fn on_draw(&mut self) {
+        self.rendering_system.end_frame();
+    }
 
     fn update(&mut self, dt: std::time::Duration) {
         println!("Client update: dt={:?}", dt);
@@ -59,42 +61,73 @@ impl ClientApp {
     }
 
     // Event handling
-    pub fn on_event(&mut self, event : Event<'_, ()>, elwt : &EventLoopWindowTarget<()>, control_flow: &mut ControlFlow) {
+    pub fn on_event(
+        &mut self,
+        event: Event<'_, ()>,
+        elwt: &EventLoopWindowTarget<()>,
+        control_flow: &mut ControlFlow,
+    ) {
         match event {
             // Emitted before any events in specific frame.
-            Event::NewEvents(start_cause) => { 
+            Event::NewEvents(start_cause) => {
                 match start_cause {
-                    StartCause::Init => { self.on_init(); },
+                    StartCause::Init => {
+                        self.on_init();
+                    }
                     //StartCause::ResumeTimeReached{start, requested_resume} => {},
                     //StartCause::WaitCancelled{start, requested_resume} => {},
                     //StartCause::Poll => {},
                     _ => {}
                 }
-            },
+            }
             // Window related events category
-            Event::WindowEvent{window_id, event} => { self.on_window_event(window_id, event, elwt, control_flow); },
+            Event::WindowEvent { window_id, event } => {
+                self.on_window_event(window_id, event, elwt, control_flow);
+            }
             // User I/O related events category
-            Event::DeviceEvent{device_id, event} => { self.on_device_event(device_id, event, elwt, control_flow); },
+            Event::DeviceEvent { device_id, event } => {
+                self.on_device_event(device_id, event, elwt, control_flow);
+            }
             // Custom user event
-            Event::UserEvent(user_data) => { println!("UNKNOWN USER EVENT: {:?}", user_data); },
+            Event::UserEvent(user_data) => {
+                println!("UNKNOWN USER EVENT: {:?}", user_data);
+            }
             // Emmited when the application gets suspended.
-            Event::Suspended => { self.on_suspend(); },
+            Event::Suspended => {
+                self.on_suspend();
+            }
             // Emmited when the application gets unsuspended.
-            Event::Resumed => { self.on_resume(); },
+            Event::Resumed => {
+                self.on_resume();
+            }
             // Emmited after all non-rendering events got processed.
-            Event::MainEventsCleared => { self.on_update(); },
-            
+            Event::MainEventsCleared => {
+                self.on_update();
+            }
+
             // Emmited when a window should be redrawn
-            Event::RedrawRequested(window_id) => { self.on_redraw(window_id); },
+            Event::RedrawRequested(window_id) => {
+                self.on_redraw(window_id);
+            }
             // Emmited after all RedrawRequested events have been processed.
-            Event::RedrawEventsCleared => { self.on_draw(); },
-            
+            Event::RedrawEventsCleared => {
+                self.on_draw();
+            }
+
             // Emitted when the event loop is being shut down.
-            Event::LoopDestroyed => { self.on_close(); },
+            Event::LoopDestroyed => {
+                self.on_close();
+            }
         }
     }
 
-    fn on_window_event(&mut self, window_id: WindowId, event : WindowEvent, _elwt : &EventLoopWindowTarget<()>, control_flow: &mut ControlFlow) {
+    fn on_window_event(
+        &mut self,
+        window_id: WindowId,
+        event: WindowEvent,
+        _elwt: &EventLoopWindowTarget<()>,
+        control_flow: &mut ControlFlow,
+    ) {
         match event {
             WindowEvent::CloseRequested => {
                 let was_last = self.rendering_system.close_window(window_id);
@@ -128,7 +161,13 @@ impl ClientApp {
         }
     }
 
-    fn on_device_event(&mut self, _device_id: DeviceId, event : DeviceEvent, _elwt : &EventLoopWindowTarget<()>, _control_flow: &mut ControlFlow) {
+    fn on_device_event(
+        &mut self,
+        _device_id: DeviceId,
+        event: DeviceEvent,
+        _elwt: &EventLoopWindowTarget<()>,
+        _control_flow: &mut ControlFlow,
+    ) {
         // TODO Implement raw input handling if necessary.
         match event {
             // DeviceEvent::Added => {},
