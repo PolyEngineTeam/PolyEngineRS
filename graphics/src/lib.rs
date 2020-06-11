@@ -1,7 +1,14 @@
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
-    }
-}
+mod common;
+mod context;
+mod renderer;
+mod system;
+mod target;
+mod vertex;
+mod error;
+mod config;
+mod window;
+mod geometry;
+mod material;
+
+pub use system::RenderingSystem;
+pub use geometry::GeometryId;

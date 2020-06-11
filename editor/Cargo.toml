@@ -8,6 +8,9 @@ authors = [
 edition = "2018"
 
 [dependencies]
+polyengine-graphics = {path = "../graphics", features=[]}
 polyengine-gui = {path = "../gui", features=[]}
 polyengine-core = {path = "../core", features=[]}
 polyengine = {path = "../engine", features=[]}
+
+winit = { version = "0.22"}

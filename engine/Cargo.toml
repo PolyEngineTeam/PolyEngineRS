@@ -9,11 +9,7 @@ edition = "2018"
 crate-type = ["dylib"]
 
 [features]
-graphics = ["polyengine-graphics", "polyengine-gui"]
-audio = []
 networking = []
 
 [dependencies]
 polyengine-core = {path = "../core", features=[]}
-polyengine-graphics = {path = "../graphics", features=[], optional = true }
-polyengine-gui = {path = "../gui", features=[], optional = true }
