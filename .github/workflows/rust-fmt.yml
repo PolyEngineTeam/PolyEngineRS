@@ -28,6 +28,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
+      - uses: seanmiddleditch/gha-setup-ninja@master 
+        if: matrix.os == 'windows-latest'
       - name: Build
         run: cargo build
       - name: Run tests
