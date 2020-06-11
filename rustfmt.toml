@@ -1,0 +1,73 @@
+# Rust fmt config for PolyEngien project.
+
+# File ignore list
+ignore = []
+
+# Enable unstable features
+unstable_features = true
+
+# Use 2018 rust edition
+edition = "2018"
+
+# Put single-expression functions on a single line
+fn_single_line = true 
+
+# Format code snippet included in doc comments.
+format_code_in_doc_comments = true
+
+# Format the metavariable matching patterns in macros.
+format_macro_matchers = true
+
+# Format string literals where necessary
+format_strings = true
+
+# Use tab characters for indentation, spaces for alignment
+hard_tabs = false
+
+# Indent style of imports
+imports_indent = "Block"
+
+# Item layout inside a imports block
+imports_layout = "HorizontalVertical"
+
+# Merge multiple imports into a single nested import.
+merge_imports = true
+
+# Unix or Windows line endings
+newline_style = "Unix"
+
+# Convert /* */ comments to // comments where possible
+normalize_comments = true
+
+# Remove nested parens.
+remove_nested_parens = true
+
+# Reorder impl items. type and const are put first, then macros and methods.
+reorder_impl_items = true
+
+# Reorder import and extern crate statements alphabetically in groups (a group is separated by a newline).
+reorder_imports = true
+
+# Reorder mod declarations alphabetically in group.
+reorder_modules = true
+
+# Leave a space after the colon.
+space_after_colon = true
+
+# Number of spaces per tab
+tab_spaces = 4
+
+# How to handle trailing commas for lists
+trailing_comma = "Always"
+
+# Add trailing semicolon after break, continue and return
+trailing_semicolon = true
+
+# Determines if + or = are wrapped in spaces in the punctuation of types
+type_punctuation_density = "Wide"
+
+# Use field initialize shorthand if possible.
+use_field_init_shorthand = true
+
+# Break comments to fit on the line
+wrap_comments = true

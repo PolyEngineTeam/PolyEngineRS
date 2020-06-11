@@ -1,0 +1,10 @@
+
+
+[workspace]
+members = [
+    "core",
+    "editor",
+    "engine",
+    "graphics",
+    "gui"
+]
