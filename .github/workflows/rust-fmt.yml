@@ -1,20 +1,27 @@
-name: Greet Everyone
-# This workflow is triggered on pushes to the repository.
+name: Check formatting
+
 on: [push, pull_request]
 
+env:
+  CARGO_TERM_COLOR: always
+
 jobs:
-  build:
-    # Job name is Greeting
-    name: Greeting
-    # This job runs on Linux
+build_and_test:
+    name: Rust project
     runs-on: ubuntu-latest
     steps:
-      # This step uses GitHub's hello-world-javascript-action: https://github.com/actions/hello-world-javascript-action
-      - name: Hello world
-        uses: actions/hello-world-javascript-action@v1
+    - uses: actions/checkout@v2
+    - uses: actions-rs/toolchain@v1
         with:
-          who-to-greet: 'Mona the Octocat'
-        id: hello
-      # This step prints an output (time) from the previous step's action.
-      - name: Echo the greeting's time
-        run: echo 'The time was ${{ steps.hello.outputs.time }}.'
+        toolchain: stable
+
+#   jobs:
+#   build:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#     - uses: actions/checkout@v2
+#     - name: Setup
+#       run: rustup toolchain install nightly
+#     - name: Check formatting
+#       run: cargo +nightly fmt -- --check
