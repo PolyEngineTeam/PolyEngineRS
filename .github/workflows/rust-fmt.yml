@@ -5,15 +5,16 @@ on: [push, pull_request]
 env:
   CARGO_TERM_COLOR: always
 
-jobs:
-build_and_test:
-    name: Rust project
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions-rs/toolchain@v1
-        with:
-        toolchain: stable
+  jobs:
+    build_and_test:
+      name: Rust project
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+        - uses: actions-rs/toolchain@v1
+          with:
+            toolchain: stable
+        - run: cargo build --release --all-features
 
 #   jobs:
 #   build:
