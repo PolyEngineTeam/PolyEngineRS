@@ -19,7 +19,7 @@ jobs:
         rustup toolchain install nightly-2020-06-10
         rustup component add rustfmt --toolchain nightly-2020-06-10
     - name: Check formatting
-      run: cargo +nightly fmt -- --check
+      run: cargo +nightly-2020-06-10 fmt -- --check
 
   build:
     strategy:
