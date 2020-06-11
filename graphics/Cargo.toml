@@ -1,13 +1,17 @@
 [package]
-name = "polyengine-editor"
+name = "polyengine-graphics"
 version = "0.1.0"
 authors = [
     # Extend this list when submiting PR
     "Michał Majczak <michal.majczak92@gmail.com>"
     ]
 edition = "2018"
+crate-type = ["dylib"]
 
 [dependencies]
-polyengine-gui = {path = "../gui", features=[]}
 polyengine-core = {path = "../core", features=[]}
-polyengine = {path = "../engine", features=[]}
+
+vulkano = { version = "0.18"}
+vulkano-shaders = { version = "0.18"}
+vulkano-win = { version = "0.18"}
+winit = { version = "0.22"}

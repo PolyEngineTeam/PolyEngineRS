@@ -9,14 +9,11 @@ edition = "2018"
 crate-type = ["dylib"]
 
 [features]
-graphics = ["vulkano", "vulkano-shaders", "vulkano-win", "winit"]
+graphics = ["polyengine-graphics", "polyengine-gui"]
 audio = []
 networking = []
 
 [dependencies]
 polyengine-core = {path = "../core", features=[]}
-
-vulkano = { version = "0.18", optional = true }
-vulkano-shaders = { version = "0.18", optional = true }
-vulkano-win = { version = "0.18", optional = true }
-winit = { version = "0.22", optional = true }
+polyengine-graphics = {path = "../graphics", features=[], optional = true }
+polyengine-gui = {path = "../gui", features=[], optional = true }
