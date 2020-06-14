@@ -20,11 +20,11 @@ pub struct ClientApp {
 }
 
 impl ClientApp {
-    pub fn new(event_loop: &EventLoop<(),>,) -> Self {
+    pub fn new(event_loop: &EventLoop<()>) -> Self {
         let engine = Engine::new();
-        let mut rendering_system = RenderingSystem::new(&event_loop,);
-        rendering_system.open_window(event_loop, "Rustcraft client",);
-        rendering_system.create_geometry(&primitives::generate_box(1.0,),);
+        let mut rendering_system = RenderingSystem::new(&event_loop);
+        rendering_system.open_window(event_loop, "Rustcraft client");
+        rendering_system.create_geometry(&primitives::generate_box(1.0));
         return ClientApp {
             engine,
             rendering_system,
@@ -33,42 +33,42 @@ impl ClientApp {
     }
 
     // Power states
-    fn on_init(&mut self,) { self.last_tick_instant = Instant::now(); }
+    fn on_init(&mut self) { self.last_tick_instant = Instant::now(); }
 
-    fn on_suspend(&mut self,) {}
+    fn on_suspend(&mut self) {}
 
-    fn on_resume(&mut self,) {}
+    fn on_resume(&mut self) {}
 
-    fn on_close(&mut self,) {}
+    fn on_close(&mut self) {}
 
     // Main Loop
 
-    fn on_update(&mut self,) {
+    fn on_update(&mut self) {
         let now_instant = Instant::now();
         let dt = now_instant - self.last_tick_instant;
-        self.update(dt,);
+        self.update(dt);
         self.last_tick_instant = now_instant;
     }
 
-    fn on_redraw(&mut self, _window_id: WindowId,) {}
+    fn on_redraw(&mut self, _window_id: WindowId) {}
 
-    fn on_draw(&mut self,) { self.rendering_system.end_frame(); }
+    fn on_draw(&mut self) { self.rendering_system.end_frame(); }
 
-    fn update(&mut self, dt: std::time::Duration,) {
+    fn update(&mut self, dt: std::time::Duration) {
         log::trace!("Update: dt={:?}", dt);
-        self.engine.update(dt,);
+        self.engine.update(dt);
     }
 
     // Event handling
     pub fn on_event(
         &mut self,
-        event: Event<'_, (),>,
-        elwt: &EventLoopWindowTarget<(),>,
+        event: Event<'_, ()>,
+        elwt: &EventLoopWindowTarget<()>,
         control_flow: &mut ControlFlow,
     ) {
         match event {
             // Emitted before any events in specific frame.
-            Event::NewEvents(start_cause,) => {
+            Event::NewEvents(start_cause) => {
                 match start_cause {
                     StartCause::Init => {
                         self.on_init();
@@ -80,15 +80,15 @@ impl ClientApp {
                 }
             }
             // Window related events category
-            Event::WindowEvent { window_id, event, } => {
-                self.on_window_event(window_id, event, elwt, control_flow,);
+            Event::WindowEvent { window_id, event } => {
+                self.on_window_event(window_id, event, elwt, control_flow);
             }
             // User I/O related events category
-            Event::DeviceEvent { device_id, event, } => {
-                self.on_device_event(device_id, event, elwt, control_flow,);
+            Event::DeviceEvent { device_id, event } => {
+                self.on_device_event(device_id, event, elwt, control_flow);
             }
             // Custom user event
-            Event::UserEvent(user_data,) => {
+            Event::UserEvent(user_data) => {
                 log::warn!("UNKNOWN USER EVENT: {:?}", user_data);
             }
             // Emmited when the application gets suspended.
@@ -105,8 +105,8 @@ impl ClientApp {
             }
 
             // Emmited when a window should be redrawn
-            Event::RedrawRequested(window_id,) => {
-                self.on_redraw(window_id,);
+            Event::RedrawRequested(window_id) => {
+                self.on_redraw(window_id);
             }
             // Emmited after all RedrawRequested events have been processed.
             Event::RedrawEventsCleared => {
@@ -124,18 +124,18 @@ impl ClientApp {
         &mut self,
         window_id: WindowId,
         event: WindowEvent,
-        _elwt: &EventLoopWindowTarget<(),>,
+        _elwt: &EventLoopWindowTarget<()>,
         control_flow: &mut ControlFlow,
     ) {
         match event {
             WindowEvent::CloseRequested => {
-                let was_last = self.rendering_system.close_window(window_id,);
+                let was_last = self.rendering_system.close_window(window_id);
                 if was_last {
                     *control_flow = ControlFlow::Exit;
                 }
             }
-            WindowEvent::Resized(size,) => {
-                self.rendering_system.window_resized(window_id, size,);
+            WindowEvent::Resized(size) => {
+                self.rendering_system.window_resized(window_id, size);
             }
             // WindowEvent::Moved(position) => {},
             // WindowEvent::Destroyed => {},
@@ -164,7 +164,7 @@ impl ClientApp {
         &mut self,
         _device_id: DeviceId,
         event: DeviceEvent,
-        _elwt: &EventLoopWindowTarget<(),>,
+        _elwt: &EventLoopWindowTarget<()>,
         _control_flow: &mut ControlFlow,
     ) {
         // TODO Implement raw input handling if necessary.

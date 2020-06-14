@@ -7,15 +7,15 @@ use vulkano::{
 };
 
 pub struct Renderer {
-    pub pipeline: Arc<dyn GraphicsPipelineAbstract + Send + Sync,>,
+    pub pipeline: Arc<dyn GraphicsPipelineAbstract + Send + Sync>,
     #[allow(dead_code)] // TODO remove this
-    render_pass: Arc<dyn RenderPassAbstract + Send + Sync,>,
+    render_pass: Arc<dyn RenderPassAbstract + Send + Sync>,
 }
 
 impl Renderer {
     pub fn new(
-        device: Arc<Device,>,
-        render_pass: Arc<dyn RenderPassAbstract + Send + Sync,>,
+        device: Arc<Device>,
+        render_pass: Arc<dyn RenderPassAbstract + Send + Sync>,
     ) -> Self {
         mod vs {
             vulkano_shaders::shader! {
@@ -43,8 +43,8 @@ impl Renderer {
             }
         }
 
-        let vs = vs::Shader::load(device.clone(),).unwrap();
-        let fs = fs::Shader::load(device.clone(),).unwrap();
+        let vs = vs::Shader::load(device.clone()).unwrap();
+        let fs = fs::Shader::load(device.clone()).unwrap();
 
         let pipeline = Arc::new(
             GraphicsPipeline::start()
@@ -56,19 +56,19 @@ impl Renderer {
                 // A Vulkan shader can in theory contain multiple entry points, so we have to
                 // specify which one. The `main` word of `main_entry_point` actually
                 // corresponds to the name of the entry point.
-                .vertex_shader(vs.main_entry_point(), (),)
+                .vertex_shader(vs.main_entry_point(), ())
                 // The content of the vertex buffer describes a list of triangles.
                 .triangle_list()
                 // Use a resizable viewport set to draw over the entire window
-                .viewports_dynamic_scissors_irrelevant(1,)
+                .viewports_dynamic_scissors_irrelevant(1)
                 // See `vertex_shader`.
-                .fragment_shader(fs.main_entry_point(), (),)
+                .fragment_shader(fs.main_entry_point(), ())
                 // We have to indicate which subpass of which render pass this pipeline is going to
                 // be used in. The pipeline will only be usable from this particular
                 // subpass.
-                .render_pass(Subpass::from(render_pass.clone(), 0,).unwrap(),)
+                .render_pass(Subpass::from(render_pass.clone(), 0).unwrap())
                 // Now that our builder is filled, we call `build()` to obtain an actual pipeline.
-                .build(device.clone(),)
+                .build(device.clone())
                 .unwrap(),
         );
 

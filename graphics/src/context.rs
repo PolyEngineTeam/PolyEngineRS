@@ -12,20 +12,20 @@ use winit::{event_loop::EventLoopWindowTarget, window::WindowId};
 use polyengine_core::*;
 
 pub struct RenderContext {
-    pub device: Arc<Device,>,
-    pub queue: Arc<vulkano::device::Queue,>,
-    pub default_window_render_pass: Arc<dyn RenderPassAbstract + Send + Sync,>,
-    pub windows: HashMap<WindowId, WindowContext,>,
+    pub device: Arc<Device>,
+    pub queue: Arc<vulkano::device::Queue>,
+    pub default_window_render_pass: Arc<dyn RenderPassAbstract + Send + Sync>,
+    pub windows: HashMap<WindowId, WindowContext>,
 
     geometry_id_counter: GeometryId,
-    pub geometries: HashMap<GeometryId, Geometry,>,
+    pub geometries: HashMap<GeometryId, Geometry>,
 }
 
 impl RenderContext {
-    pub fn new(_elwt: &EventLoopWindowTarget<(),>, instance: Arc<Instance,>,) -> Self {
+    pub fn new(_elwt: &EventLoopWindowTarget<()>, instance: Arc<Instance>) -> Self {
         // Choose queue family
         log::info!("Available physical devices:");
-        for dev in PhysicalDevice::enumerate(&instance,) {
+        for dev in PhysicalDevice::enumerate(&instance) {
             log::info!(
                 "\t{}. {}, API: {}",
                 dev.index(),
@@ -33,9 +33,9 @@ impl RenderContext {
                 dev.api_version()
             );
         }
-        let physical = PhysicalDevice::enumerate(&instance,)
+        let physical = PhysicalDevice::enumerate(&instance)
             .next()
-            .expect("no device available",);
+            .expect("no device available");
         log::info!("Using {} as physical device.", physical.name());
 
         log::info!("Available queue families:");
@@ -55,10 +55,10 @@ impl RenderContext {
             .find(
                 |&q| q.supports_graphics(), // && surface.is_supported(q).unwrap_or(false)
             )
-            .expect("couldn't find a graphical queue family",);
+            .expect("couldn't find a graphical queue family");
 
         // Device + queues
-        let (device, mut queues,) = {
+        let (device, mut queues) = {
             let device_ext = vulkano::device::DeviceExtensions {
                 khr_swapchain: true,
                 ..vulkano::device::DeviceExtensions::none()
@@ -68,9 +68,9 @@ impl RenderContext {
                 physical,
                 physical.supported_features(),
                 &device_ext,
-                [(queue_family, 0.5,),].iter().cloned(),
+                [(queue_family, 0.5)].iter().cloned(),
             )
-            .expect("failed to create device",)
+            .expect("failed to create device")
         };
         let queue = queues.next().unwrap();
 
@@ -115,7 +115,7 @@ impl RenderContext {
         };
     }
 
-    pub fn create_window(&mut self, elwt: &EventLoopWindowTarget<(),>, _name: &str,) -> WindowId {
+    pub fn create_window(&mut self, elwt: &EventLoopWindowTarget<()>, _name: &str) -> WindowId {
         let window_context = WindowContext::new(
             elwt,
             self.device.instance().clone(),
@@ -125,24 +125,24 @@ impl RenderContext {
         );
 
         let window_id = window_context.id();
-        self.windows.insert(window_id, window_context,);
+        self.windows.insert(window_id, window_context);
         return window_id;
     }
 
-    pub fn close_window(&mut self, window_id: WindowId,) -> Result<(), RenderingError,> {
-        match self.windows.remove(&window_id,) {
-            Some(_,) => return Ok((),),
-            None => return Err(RenderingError::WindowNotFound,),
+    pub fn close_window(&mut self, window_id: WindowId) -> Result<(), RenderingError> {
+        match self.windows.remove(&window_id) {
+            Some(_) => return Ok(()),
+            None => return Err(RenderingError::WindowNotFound),
         }
     }
 
-    pub fn window_count(&self,) -> usize { return self.windows.len(); }
+    pub fn window_count(&self) -> usize { return self.windows.len(); }
 
-    pub fn create_geometry(&mut self, data: &Vec<na::Vector3<FScalar,>,>,) -> GeometryId {
+    pub fn create_geometry(&mut self, data: &Vec<na::Vector3<FScalar>>) -> GeometryId {
         let geometry_id = self.geometry_id_counter;
         self.geometry_id_counter += 1;
         self.geometries
-            .insert(geometry_id, Geometry::from_data(self.device.clone(), data,),);
+            .insert(geometry_id, Geometry::from_data(self.device.clone(), data));
         return geometry_id;
     }
 }

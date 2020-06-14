@@ -19,6 +19,6 @@ fn main() {
     log::info!("Starting PolyEngine editor...");
 
     let event_loop = EventLoop::new();
-    let mut app = ClientApp::new(&event_loop,);
-    event_loop.run(move |event, elwt, control_flow| app.on_event(event, elwt, control_flow,),);
+    let mut app = ClientApp::new(&event_loop);
+    event_loop.run(move |event, elwt, control_flow| app.on_event(event, elwt, control_flow));
 }
