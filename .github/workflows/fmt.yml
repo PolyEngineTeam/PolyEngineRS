@@ -20,3 +20,11 @@ jobs:
         rustup component add rustfmt --toolchain nightly-2020-06-10
     - name: Check formatting
       run: cargo +nightly-2020-06-10 fmt -- --check
+    - name: Check no println! usage
+      shell: bash
+      run: |
+        ! grep -rwq ./core -e 'println!'
+        ! grep -rwq ./editor -e 'println!'
+        ! grep -rwq ./engine -e 'println!'
+        ! grep -rwq ./graphics -e 'println!'
+        ! grep -rwq ./gui -e 'println!'

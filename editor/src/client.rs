@@ -7,6 +7,7 @@ use winit::{
 use std::time::Instant;
 
 use polyengine::Engine;
+use polyengine_core::log;
 use polyengine_graphics::RenderingSystem;
 
 use crate::primitives;
@@ -54,7 +55,7 @@ impl ClientApp {
     fn on_draw(&mut self,) { self.rendering_system.end_frame(); }
 
     fn update(&mut self, dt: std::time::Duration,) {
-        println!("Client update: dt={:?}", dt);
+        log::trace!("Update: dt={:?}", dt);
         self.engine.update(dt,);
     }
 
@@ -88,7 +89,7 @@ impl ClientApp {
             }
             // Custom user event
             Event::UserEvent(user_data,) => {
-                println!("UNKNOWN USER EVENT: {:?}", user_data);
+                log::warn!("UNKNOWN USER EVENT: {:?}", user_data);
             }
             // Emmited when the application gets suspended.
             Event::Suspended => {

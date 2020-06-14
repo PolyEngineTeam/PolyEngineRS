@@ -24,9 +24,9 @@ pub struct RenderContext {
 impl RenderContext {
     pub fn new(_elwt: &EventLoopWindowTarget<(),>, instance: Arc<Instance,>,) -> Self {
         // Choose queue family
-        println!("Available physical devices:");
+        log::info!("Available physical devices:");
         for dev in PhysicalDevice::enumerate(&instance,) {
-            println!(
+            log::info!(
                 "\t{}. {}, API: {}",
                 dev.index(),
                 dev.name(),
@@ -36,11 +36,11 @@ impl RenderContext {
         let physical = PhysicalDevice::enumerate(&instance,)
             .next()
             .expect("no device available",);
-        println!("Using {} as physical device.", physical.name());
+        log::info!("Using {} as physical device.", physical.name());
 
-        println!("Available queue families:");
+        log::info!("Available queue families:");
         for family in physical.queue_families() {
-            println!(
+            log::info!(
                 "ID: {} Queue count: {} Graphics: {} Compute: {} Transfer: {} Sparse bindings: {}",
                 family.id(),
                 family.queues_count(),

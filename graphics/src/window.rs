@@ -36,6 +36,8 @@ use crate::{
     target::RenderTarget,
 };
 
+use polyengine_core::log;
+
 pub struct WindowContext {
     device: Arc<Device,>,
     queue: Arc<vulkano::device::Queue,>,
@@ -256,7 +258,7 @@ impl WindowContext {
                     Some(Box::new(sync::now(self.device.clone(),),) as Box<_,>,);
             }
             Err(e,) => {
-                println!("Failed to flush future: {:?}", e);
+                log::error!("Failed to flush future: {:?}", e);
                 self.previous_frame_end =
                     Some(Box::new(sync::now(self.device.clone(),),) as Box<_,>,);
             }
