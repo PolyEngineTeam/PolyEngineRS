@@ -1,5 +1,6 @@
 [attr]rust text eol=lf whitespace=tab-in-indent,trailing-space,tabwidth=4
 
+# Code files
 * text=auto eol=lf
 *.cpp rust
 *.hpp rust
@@ -7,3 +8,9 @@
 *.h rust
 *.rs rust
 Cargo.lock linguist-generated=false
+
+# Binaries
+*.svg binary
+*.png binary
+*.psd binary
+*.tga binary
