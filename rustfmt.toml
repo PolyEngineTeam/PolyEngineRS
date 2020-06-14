@@ -58,7 +58,7 @@ space_after_colon = true
 tab_spaces = 4
 
 # How to handle trailing commas for lists
-trailing_comma = "Always"
+trailing_comma = "Vertical"
 
 # Add trailing semicolon after break, continue and return
 trailing_semicolon = true
