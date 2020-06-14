@@ -1,6 +1,6 @@
-pub type FScalar = f32; // Floating point position type
-pub type IScalar = i32; // Position type, for blocks
-pub type UScalar = i32; // Position type, for blocks
+pub type FScalar = f32; // Floating point scalar
+pub type IScalar = i32; // Integer scalar
+pub type UScalar = u32; // Unsigned integer scalar
 
 // 2D Vectors
 pub type Vector2f = na::Vector2<FScalar>;
