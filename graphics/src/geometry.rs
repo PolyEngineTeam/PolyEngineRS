@@ -14,8 +14,8 @@ pub struct Geometry {
 }
 
 impl Geometry {
-    pub fn from_data(device: Arc<Device,>, data: &Vec<na::Vector3<FScalar,>,>,) -> Self {
-        let mapper = |v3: &na::Vector3<FScalar,>| {
+    pub fn from_data(device: Arc<Device,>, data: &Vec<na::Vector3<FScalar>,>,) -> Self {
+        let mapper = |v3: &na::Vector3<FScalar>| {
             return Vertex {
                 position: [v3.x as f32, v3.y as f32, v3.z as f32,],
             };

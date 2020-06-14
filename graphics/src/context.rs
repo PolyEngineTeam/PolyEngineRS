@@ -138,7 +138,7 @@ impl RenderContext {
 
     pub fn window_count(&self,) -> usize { return self.windows.len(); }
 
-    pub fn create_geometry(&mut self, data: &Vec<na::Vector3<FScalar,>,>,) -> GeometryId {
+    pub fn create_geometry(&mut self, data: &Vec<na::Vector3<FScalar>,>,) -> GeometryId {
         let geometry_id = self.geometry_id_counter;
         self.geometry_id_counter += 1;
         self.geometries

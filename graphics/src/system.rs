@@ -91,7 +91,7 @@ impl RenderingSystem {
         };
     }
 
-    pub fn create_geometry(&mut self, data: &Vec<na::Vector3<FScalar,>,>,) -> GeometryId {
+    pub fn create_geometry(&mut self, data: &Vec<na::Vector3<FScalar>,>,) -> GeometryId {
         return self.context.create_geometry(data,);
     }
 
