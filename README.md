@@ -1,10 +1,10 @@
-# PolyEngineRS
+<img src="media/PolyEngine_logo_black.png" height="120">
 
-[![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)
 **Stable (master):**
 ![CI](https://github.com/PolyEngineTeam/PolyEngineRS/workflows/CI/badge.svg?branch=master) ![Fmt](https://github.com/PolyEngineTeam/PolyEngineRS/workflows/Fmt/badge.svg?branch=master)
 **Testing (dev):**
 ![CI](https://github.com/PolyEngineTeam/PolyEngineRS/workflows/CI/badge.svg?branch=dev) ![Fmt](https://github.com/PolyEngineTeam/PolyEngineRS/workflows/Fmt/badge.svg?branch=dev)
+[![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)
 
 Rust game engine project.  
 Currently it is in a very early stage of development.
